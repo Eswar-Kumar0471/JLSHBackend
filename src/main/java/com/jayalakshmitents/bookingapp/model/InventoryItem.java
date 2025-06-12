@@ -1,6 +1,10 @@
 package com.jayalakshmitents.bookingapp.model;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.DecimalMin;
+import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
+
 import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
@@ -13,18 +17,23 @@ public class InventoryItem {
     private Long id;
 
     @Column(name = "type", nullable = false)
+    @NotBlank(message = "Type is required")
     private String type;
 
     @Column(name = "name", nullable = false)
+    @NotBlank(message = "Name is required")
     private String name;
 
     @Column(name = "size_or_variant")
     private String sizeOrVariant;
 
     @Column(name = "quantity_available")
+    @NotNull(message = "Quantity is required")
     private int quantityAvailable;
 
     @Column(name = "unit_price")
+    @NotNull(message = "Unit Price is required")
+    @DecimalMin(value = "0.0", inclusive = true, message = "Unit price must be positive")
     private BigDecimal unitPrice;
 
     private String description;
@@ -103,6 +112,14 @@ public class InventoryItem {
 
     public LocalDateTime getCreatedAt() {
         return createdAt;
+    }
+
+    public Boolean getIsActive() {
+        return isActive;
+    }
+    
+    public void setIsActive(Boolean isActive) {
+        this.isActive = isActive;
     }
 
     // No setter for createdAt since it's handled by DB

@@ -29,4 +29,19 @@ public class InventoryItemService {
     public void deleteItem(Long id) {
         repository.deleteById(id);
     }
+
+    public InventoryItem updateItem(Long id, InventoryItem updatedItem) {
+        InventoryItem existingItem = repository.findById(id)
+                .orElseThrow(() -> new RuntimeException("Item not found with ID: " + id));
+    
+        existingItem.setType(updatedItem.getType());
+        existingItem.setName(updatedItem.getName());
+        existingItem.setSizeOrVariant(updatedItem.getSizeOrVariant());
+        existingItem.setQuantityAvailable(updatedItem.getQuantityAvailable());
+        existingItem.setUnitPrice(updatedItem.getUnitPrice());
+        existingItem.setDescription(updatedItem.getDescription());
+        existingItem.setIsActive(updatedItem.getIsActive());
+    
+        return repository.save(existingItem);
+    }
 }
