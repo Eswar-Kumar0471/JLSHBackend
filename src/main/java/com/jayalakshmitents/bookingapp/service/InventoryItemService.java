@@ -44,4 +44,7 @@ public class InventoryItemService {
     
         return repository.save(existingItem);
     }
+    public List<String> getAllItemNames() {
+        return repository.findAllItemNames();
+    }
 }

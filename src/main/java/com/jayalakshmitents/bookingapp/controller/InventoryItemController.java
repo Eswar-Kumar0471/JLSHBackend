@@ -57,5 +57,10 @@ public class InventoryItemController {
                 })
                 .orElse(ResponseEntity.notFound().build());
     }
+
+    @GetMapping("/item-names")
+    public List<String> getAllItemNames() {
+        return inventoryItemService.getAllItemNames();
+    }
 }
     
